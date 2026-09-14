@@ -1,0 +1,32 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "settings"
+    label: "إعدادات الموقع والشعار"
+    files:
+      - file: "content/settings.json"
+        label: "المعلومات العامة واللوجو"
+        name: "general"
+        fields:
+          - { label: "اسم الشركة", name: "site_title", widget: "string", default: "مجموعة هورايزن | Horizon Group" }
+          - { label: "شعارات ولوجو الشركة", name: "logo_image", widget: "image", required: false }
+          - { label: "العنوان الرئيسي", name: "hero_title", widget: "string" }
+          - { label: "وصف الشركة", name: "hero_description", widget: "text" }
+          - { label: "صورة الغلاف الرئيسية (Hero Banner)", name: "hero_image", widget: "image", required: false }
+          - { label: "رقم الهاتف / الواتساب", name: "phone", widget: "string" }
+
+  - name: "projects"
+    label: "معرض المشاريع والطباعة"
+    folder: "content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "اسم المشروع / العميل", name: "title", widget: "string" }
+      - { label: "تفاصيل ووصف العمل", name: "description", widget: "text" }
+      - { label: "صورة المشروع / التصميم", name: "project_image", widget: "image" }
+      - { label: "ملف العقد أو الوثيقة (PDF)", name: "pdf_file", widget: "file", required: false }
