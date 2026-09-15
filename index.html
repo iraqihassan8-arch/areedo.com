@@ -3,29 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شركة بوابة أريدو للدعاية والإعلان</title>
+    <title id="page-title">شركة بوابة أريدو للدعاية والإعلان</title>
     <meta name="google-site-verification" content="FDCVeXReCQKnJ4u1B_gei12aaYBTdjvNmrwAIYrLJFY" />
     <style>
         body { font-family: Tahoma, sans-serif; text-align: center; background: #f9f9f9; padding: 50px; margin: 0; }
-        .logo { max-width: 150px; margin-bottom: 20px; }
+        .logo { max-width: 150px; margin-bottom: 20px; border-radius: 8px; }
         h1 { color: #333; }
-        p { color: #666; font-size: 18px; }
+        p { color: #666; font-size: 18px; max-width: 600px; margin: 0 auto; line-height: 1.6; }
         footer { margin-top: 40px; padding: 20px; color: #777; font-size: 14px; border-top: 1px solid #eee; text-align: center; }
     </style>
 </head>
 <body>
 
-    <!-- الشعار -->
-    <img src="uploads/whatsapp-image-2026-09-14-at-14.20.51.jpeg" alt="شعار الشركة" class="logo">
+    <!-- الشعار الذي سيتم جلبه من الأدمن -->
+    <img id="site-logo" src="" alt="شعار الشركة" class="logo" style="display:none;">
 
     <!-- اسم الشركة ووصفها -->
-    <h1>شركة بوابة أريدو للدعاية والإعلان</h1>
-    <p>حلول متكاملة للدعاية، الطباعة، خدمات إعلانية متكاملة، طباعة رقمية وإكسسوارات إعلانية بجودة عالية واحترافية لتلبية كافة احتياجات عملك في البصرة.</p>
+    <h1 id="site-title">جاري تحميل البيانات...</h1>
+    <p id="site-desc"></p>
 
     <!-- حقوق النشر -->
     <footer>
         جميع الحقوق محفوظة &copy; 2026 بوابة أريدو
-    </footer>
+    ></footer>
+
+    <script>
+        // جلب البيانات تلقائياً من ملف الـ JSON الخاص بالأدمن
+        fetch('content/settings.json')
+            .then(response => response.json())
+            .then(data => {
+                if (data.site_title) {
+                    document.getElementById('site-title').innerText = data.site_title;
+                    document.getElementById('page-title').innerText = data.site_title;
+                }
+                if (data.hero_description) {
+                    document.getElementById('site-desc').innerText = data.hero_description;
+                }
+                if (data.logo_image) {
+                    const logoImg = document.getElementById('site-logo');
+                    logoImg.src = data.logo_image;
+                    logoImg.style.display = 'inline-block';
+                }
+            })
+            .catch(error => {
+                console.error('خطأ في جلب بيانات الأدمن:', error);
+                document.getElementById('site-title').innerText = "شركة بوابة أريدو للدعاية والإعلان";
+            });
+    </script>
 
 </body>
 </html>
